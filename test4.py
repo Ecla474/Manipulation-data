@@ -35,25 +35,22 @@ treescrollx.pack(side="bottom", fill="x")
 treescrolly.pack(side="right", fill="y")
 
 def File_dialog():
-	filename = filedialog.askopenfilename(initialdir="~", title="Selectionner un fichier", filetypes=(("xlsx files", "*.xlsx"),("Tous les fichiers", "*.*")))
+	filename = filedialog.askopenfilename(initialdir="~", title="Selectionner un fichier", filetypes=(("csv files", "*.csv"),("JSON files", "*.json"),("xlsx files", "*.xlsx"),("Tous les fichiers", "*.*")))
 	print(filename)
-	print(filename[-4:])
-	print(filename[:-6])
-	print(filename[28:])
-	final_filename = (filename[28:])
-	label_file["text"] = final_filename
+	
+	label_file["text"] = filename
 	return None
 
 def Load_excel_data():
 	file_path = label_file["text"]
 	try:
-		excel_filename = r"{}".format(file_path)
+		excel_filename = r"{}".format(file_path) 
 		if excel_filename[-4:] == ".csv":
 			df = pd.read_csv(excel_filename)
 			
 			print(excel_filename)
 		else:
-			df = pd.read_csv(excel_filename)
+			df = pd.read_json(excel_filename)
 
 	except ValueError:
 		tk.messagebox.showerror("Information", "Le fichier que vous avez choisi est invalide")
