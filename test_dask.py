@@ -5,6 +5,8 @@ from tkinter import font as fontTk
 #import pandas as pd
 import dask.dataframe as dd
 import dask.array as da
+import dask.bag as db
+
 
 
 root = tk.Tk()
@@ -57,11 +59,11 @@ def Load_excel_data():
 		excel_filename = r"{}".format(file_path) 
 		if excel_filename[-4:] == ".csv":
     		
-			print(excel_filename)
+			print("1")
 			
 			df = dd.read_csv(excel_filename)
 			
-			print(excel_filename)
+			print("2")
 		else:
 			df = dd.to_json(excel_filename)
 
@@ -71,15 +73,25 @@ def Load_excel_data():
 	except FileNotFoundError:
 		tk.messagebox.showerror("Information", "Il n'y a pas de ficher dans {file_path}")
 
+	print("3")
 	clear_data()
+	print("4")
 	tv1["column"] = list(df.columns)
 	tv1["show"] = "headings"
+	print("5")
 	for column in tv1["columns"]:
 		tv1.heading(column, text=column)
 
-	df_rows = df.to_dask_array().compute()
+	print("6")
+	df_rows = df.to_bag()
+	print("7")
 	for row in df_rows:
+    	
 		tv1.insert("", "end", values=row)
+
+	print("8")
+		
+		
 	return None
 
 		
@@ -88,10 +100,5 @@ def Load_excel_data():
 def clear_data():
 	tv1.delete(*tv1.get_children())
 	return None
-
-
-
-
-
 
 root.mainloop()
