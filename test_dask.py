@@ -22,6 +22,7 @@ frame1['font'] = f
 frame1.place(height=308, width=600)
 
 file_frame = tk.LabelFrame(root, text="Ouvrir")
+file_frame['font'] = f
 file_frame.place(height = 150, width = 400, rely= 0.65, relx = 0)
 
 btn1 = tk.Button(file_frame, text="Rechercher", command=lambda: File_dialog())
@@ -29,15 +30,19 @@ btn1['font'] = f
 btn1.place(rely=0.65, relx=0.50)
 
 btn2 = tk.Button(file_frame, text="Charger", command=lambda: Load_excel_data())
+btn2['font'] = f
 btn2.place(rely=0.65, relx=0.30)
 
-btnQuit = tk.Button(root, text="QUITTER", bg="red", )
-btnQuit.place(rely=0.95, relx=0.89)
+btnQuit = tk.Button(root, text="Quitter", bg="red")
+btnQuit['font'] = f
+btnQuit.place(rely=0.92, relx=0.89)
 
 label_file = ttk.Label(file_frame, text="Aucun fichier selectionné")
+label_file['font'] = f
 label_file.place(rely=0, relx=0)
 
 tv1 = ttk.Treeview(frame1)
+#tv1['font'] = f
 tv1.place(relheight=1, relwidth=1)
 
 treescrolly = tk.Scrollbar(frame1, orient="vertical", command=tv1.yview)
