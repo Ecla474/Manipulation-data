@@ -25,17 +25,18 @@ file_frame = tk.LabelFrame(root, text="Ouvrir")
 file_frame['font'] = f
 file_frame.place(height = 150, width = 400, rely= 0.65, relx = 0)
 
-btn1 = tk.Button(file_frame, text="Rechercher", command=lambda: File_dialog())
+btn1 = tk.Button(file_frame, text="Rechercher", bg="blue", command=lambda: File_dialog())
 btn1['font'] = f
-btn1.place(rely=0.65, relx=0.50)
+btn1.place(rely=0.65, relx=0.53)
 
-btn2 = tk.Button(file_frame, text="Charger", command=lambda: Load_excel_data())
+btn2 = tk.Button(file_frame, text="Charger", bg="green", command=lambda: Load_excel_data())
 btn2['font'] = f
-btn2.place(rely=0.65, relx=0.30)
+btn2.place(rely=0.65, relx=0.27)
 
-btnQuit = tk.Button(root, text="Quitter", bg="red")
+btnQuit = tk.Button(root, text="Quitter", bg="red", command=lambda: close_window())
 btnQuit['font'] = f
-btnQuit.place(rely=0.92, relx=0.89)
+btnQuit.place(rely=0.92, relx=0.85)
+
 
 label_file = ttk.Label(file_frame, text="Aucun fichier selectionné")
 label_file['font'] = f
@@ -50,6 +51,9 @@ treescrollx = tk.Scrollbar(frame1, orient="horizontal", command=tv1.xview)
 tv1.configure(xscrollcommand=treescrollx.set, yscrollcommand=treescrolly.set)
 treescrollx.pack(side="bottom", fill="x")
 treescrolly.pack(side="right", fill="y")
+
+def close_window():
+    root.destroy()
 
 def File_dialog():
 	filename = filedialog.askopenfilename(initialdir="~", title="Selectionner un fichier", filetypes=(("csv files", "*.csv"),("JSON files", "*.json"),("xlsx files", "*.xlsx"),("Tous les fichiers", "*.*")))
