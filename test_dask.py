@@ -9,6 +9,73 @@ import dask.bag as db
 
 
 
+def close_window():
+    root.destroy()
+
+def File_dialog():
+	filename = filedialog.askopenfilename(initialdir="~/Bureau/Python", title="Selectionner un fichier", filetypes=(("csv files", "*.csv"),("JSON files", "*.json"),("xlsx files", "*.xlsx"),("Tous les fichiers", "*.*")))
+	print(filename)
+	
+	label_file["text"] = filename
+	return None
+
+def Load_excel_data():
+	file_path = label_file["text"]
+	try:
+
+		excel_filename = r"{}".format(file_path) 
+		if excel_filename[-4:] == ".csv":
+    		
+			print("1")
+			df = dd.read_csv(excel_filename)
+			print("2")
+
+		else:
+			df = dd.to_json(excel_filename)
+
+	except ValueError:
+		tk.messagebox.showerror("Information", "Le fichier que vous avez choisi est invalide")
+		return None
+
+	except FileNotFoundError:
+		tk.messagebox.showerror("Information", "Il n'y a pas de ficher dans {file_path}")
+
+	print("3")
+	clear_data()
+	print("4")
+	tv1["column"] = list(df.columns)
+	tv1["show"] = "headings"
+	print("5")
+
+	for column in tv1["columns"]:
+		tv1.heading(column, text=column)
+
+	print("6")
+	
+	x = df.to_dask_array(lengths=True)
+	df_rows = x[0:][0:].compute()	
+	
+	print("7")
+
+	for row in df_rows:
+
+		print(row)
+		tv1.insert("", "end", values=row)
+		
+	
+#		print("10")
+	return None
+
+	
+
+
+def clear_data():
+	tv1.delete(*tv1.get_children())
+	return None
+
+
+
+
 root = tk.Tk()
 root.geometry("750x600")
 root.pack_propagate(False)
@@ -52,62 +119,13 @@ tv1.configure(xscrollcommand=treescrollx.set, yscrollcommand=treescrolly.set)
 treescrollx.pack(side="bottom", fill="x")
 treescrolly.pack(side="right", fill="y")
 
-def close_window():
-    root.destroy()
-
-def File_dialog():
-	filename = filedialog.askopenfilename(initialdir="~", title="Selectionner un fichier", filetypes=(("csv files", "*.csv"),("JSON files", "*.json"),("xlsx files", "*.xlsx"),("Tous les fichiers", "*.*")))
-	print(filename)
-	
-	label_file["text"] = filename
-	return None
-
-def Load_excel_data():
-	file_path = label_file["text"]
-	try:
-		excel_filename = r"{}".format(file_path) 
-		if excel_filename[-4:] == ".csv":
-    		
-			print("1")
-			
-			df = dd.read_csv(excel_filename)
-			
-			print("2")
-		else:
-			df = dd.to_json(excel_filename)
-
-	except ValueError:
-		tk.messagebox.showerror("Information", "Le fichier que vous avez choisi est invalide")
-		return None
-	except FileNotFoundError:
-		tk.messagebox.showerror("Information", "Il n'y a pas de ficher dans {file_path}")
-
-	print("3")
-	clear_data()
-	print("4")
-	tv1["column"] = list(df.columns)
-	tv1["show"] = "headings"
-	print("5")
-	for column in tv1["columns"]:
-		tv1.heading(column, text=column)
-
-	print("6")
-	df_rows = df.to_bag()
-	print("7")
-	for row in df_rows:
-    	
-		tv1.insert("", "end", values=row)
-
-	print("8")
-		
-		
-	return None
-
-		
 
 
-def clear_data():
-	tv1.delete(*tv1.get_children())
-	return None
+
+
+
+
+
+
 
 root.mainloop()
