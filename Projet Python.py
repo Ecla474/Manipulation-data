@@ -29,20 +29,20 @@ def Load_excel_data():
 	try:
 
 		excel_filename = r"{}".format(file_path) 
-		print(excel_filename[-5:])
-		print("1")
 
 		if excel_filename[-4:] == ".csv":
-			df = pd.read_csv(excel_filename)
-			label_file_csv = ttk.Label(file_frame, text="Fichier CSV chargé !")
-			label_file_csv['font'] = f
-			label_file_csv.place(rely=0.2, relx=0)
 
+			df = Load_csv_data(excel_filename)
 
 		else:
-			tk.messagebox.showerror("Information", "Le format que vous avez choisi est invalide")
+			if excel_filename[-5:] == ".json":
 
+				df = Load_json_data(excel_filename)
 
+			else:
+				tk.messagebox.showerror("Information", "Le format que vous avez choisi est invalide")
+
+	
 
 	except ValueError:
 		tk.messagebox.showerror("Information", "Le fichier que vous avez choisi est invalide")
@@ -51,39 +51,64 @@ def Load_excel_data():
 	except FileNotFoundError:
 		tk.messagebox.showerror("Information", "Il n'y a pas de ficher dans {file_path}")
 
+	return df
+
+
+
+def Load_csv_data(excel_filename):
+
+	df = pd.read_csv(excel_filename)
+	label_file_csv = ttk.Label(file_frame, text="Fichier CSV chargé !")
+	label_file_csv['font'] = f
+	label_file_csv.place(rely=0.2, relx=0)
+
 	clear_data()
 	tv1["column"] = list(df.columns)
 	tv1["show"] = "headings"
 
-	ry = 0.52
+	ry = 0.5
+
 	for column in tv1["columns"]:
 		print(column)
 		tv1.heading(column, text=column)
 		btnCol = tk.Button(frame2, text="Afficher la colonne : " + column, command=lambda: affiche_colonne(column))
 		btnCol['font'] = f
 		btnCol.place(rely=ry, relx=0.03)
-		ry = ry + 0.1
+		ry = ry + 0.06
 
-#	print("6")
-	
-#	df_rows = df.to_numpy().tolist()
-#	print("7")
+	return df
 
-#	for row in df_rows:
+def Load_json_data(excel_filename):
 
-#		print(row)
-#		tv1.insert("", "end", values=row)
-		
-	
-#		print("10")
+	df = pd.read_json(excel_filename)
+	label_file_json = ttk.Label(file_frame, text="Fichier JSON chargé !")
+	label_file_json['font'] = f
+	label_file_json.place(rely=0.2, relx=0)
+
+	clear_data()
+	tv1["column"] = list(df.columns)
+	tv1["show"] = "headings"
+
+	ry = 0.5
+
+	for column in tv1["columns"]:
+		print(column)
+		tv1.heading(column, text=column)
+		btnCol = tk.Button(frame2, text="Afficher la colonne : " + column, command=lambda: affiche_colonne(column))
+		btnCol['font'] = f
+		btnCol.place(rely=ry, relx=0.03)
+		ry = ry + 0.06
+
 	return df
 
 
 def affiche_colonne(column):
 	df = Load_excel_data()
 	print(column)
+	df2 = df['Duration']
 
-	df2 = df[column]
+	print(df2)
+
 	df_rows = df2.to_numpy().tolist()
 
 	for row in df_rows:
@@ -182,7 +207,7 @@ file_frame.place(height = 120, width = 400, rely= 0.01, relx = 0.01)
 
 frame2 = tk.LabelFrame(root, text="Manipulation des données")
 frame2['font'] = f
-frame2.place(height = 350, width = 400, rely= 0.13, relx = 0.01)
+frame2.place(height = 800, width = 400, rely= 0.13, relx = 0.01)
 
 
 # Les boutons
@@ -197,15 +222,15 @@ btn2.place(rely=0.65, relx=0.27)
 
 btnClear = tk.Button(frame2, text="Effacer les données", command=lambda: clear_data())
 btnClear['font'] = f
-btnClear.place(rely=0.42, relx=0.03)
+btnClear.place(rely=0.26, relx=0.03)
 
 btn5prem = tk.Button(frame2, text="Afficher les 5 premieres données", command=lambda: affiche_5_premiers())
 btn5prem['font'] = f
-btn5prem.place(rely=0.12, relx=0.03)
+btn5prem.place(rely=0.08, relx=0.03)
 
 btn5dern = tk.Button(frame2, text="Afficher les 5 dernieres données", command=lambda: affiche_5_derniers())
 btn5dern['font'] = f
-btn5dern.place(rely=0.22, relx=0.03)
+btn5dern.place(rely=0.14, relx=0.03)
 
 btnAff = tk.Button(frame2, text="Afficher les données", command=lambda: affiche_tout())
 btnAff['font'] = f
@@ -213,11 +238,24 @@ btnAff.place(rely=0.02, relx=0.03)
 
 btnDescrp = tk.Button(frame2, text="Description des données", command=lambda: description())
 btnDescrp['font'] = f
-btnDescrp.place(rely=0.32, relx=0.03)
+btnDescrp.place(rely=0.2, relx=0.03)
 
 btnQuit = tk.Button(root, text="Quitter", bg="red", command=lambda: close_window())
 btnQuit['font'] = f
-btnQuit.place(rely=0.96, relx=0.9)
+btnQuit.place(rely=0.95, relx=0.92)
+
+btn1 = tk.Button(frame2, text="Bouton 1")
+btn1['font'] = f
+btn1.place(rely=0.38, relx=0.03)
+
+btn2 = tk.Button(frame2, text="Bouton 2")
+btn2['font'] = f
+btn2.place(rely=0.44, relx=0.03)
+
+btn3 = tk.Button(frame2, text="Bouton 3")
+btn3['font'] = f
+btn3.place(rely=0.32, relx=0.03)
+
 
 # Affichage d'un texte
 label_file = ttk.Label(file_frame, text="Aucun fichier selectionné")
