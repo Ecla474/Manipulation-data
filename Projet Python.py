@@ -1,8 +1,10 @@
 # Importation des librairies
 import tkinter as tk
+from tkinter import *
 from tkinter import filedialog, messagebox, ttk
 from tkinter.constants import BOTTOM, RIGHT
 from tkinter import font as fontTk
+from tkinter import Label
 import pandas as pd
 import dask.dataframe as dd
 import dask.array as da
@@ -17,7 +19,7 @@ def close_window():
 def File_dialog():
 	filename = filedialog.askopenfilename(initialdir="~/Bureau/Python", title="Selectionner un fichier", filetypes=(("csv files", "*.csv"),("JSON files", "*.json"),("xlsx files", "*.xlsx"),("Tous les fichiers", "*.*")))
 	print(filename)
-	
+
 	label_file["text"] = filename
 	return None
 
@@ -28,7 +30,7 @@ def Load_excel_data():
 	file_path = label_file["text"]
 	try:
 
-		excel_filename = r"{}".format(file_path) 
+		excel_filename = r"{}".format(file_path)
 
 		if excel_filename[-4:] == ".csv":
 
@@ -42,7 +44,7 @@ def Load_excel_data():
 			else:
 				tk.messagebox.showerror("Information", "Le format que vous avez choisi est invalide")
 
-	
+
 
 	except ValueError:
 		tk.messagebox.showerror("Information", "Le fichier que vous avez choisi est invalide")
@@ -115,7 +117,7 @@ def affiche_colonne(column):
 
 		print(row)
 		tv1.insert("", "end", values=row)
-		
+
 	return None
 
 def affiche_5_premiers():
@@ -129,7 +131,7 @@ def affiche_5_premiers():
 
 		print(row)
 		tv1.insert("", "end", values=row)
-		
+
 	return None
 
 
@@ -145,7 +147,7 @@ def affiche_5_derniers():
 
 		print(row)
 		tv1.insert("", "end", values=row)
-		
+
 	return None
 
 def affiche_tout():
@@ -158,12 +160,12 @@ def affiche_tout():
 
 		print(row)
 		tv1.insert("", "end", values=row)
-		
-	
+
+
 #		print("10")
 	return None
 
-	
+
 def description():
 
 	df = Load_excel_data()
@@ -174,7 +176,7 @@ def description():
 
 		print(row)
 		tv1.insert("", "end", values=row)
-		
+
 	return None
 
 # Efface les données affichées
@@ -256,6 +258,26 @@ btn3 = tk.Button(frame2, text="Bouton 3")
 btn3['font'] = f
 btn3.place(rely=0.32, relx=0.03)
 
+
+L1 = Label(frame2, text="Afficher une ligne")
+L1['font'] = f
+L1.place(rely=0.74, relx=0.03)
+
+E1 = Entry(frame2, bd = 2, width = 4)
+E1['font'] = f
+E1.place(rely=0.74, relx=0.43)
+
+L2 = Label(frame2, text="Afficher une portion de ligne")
+L2['font'] = f
+L2.place(rely=0.8, relx=0.03)
+
+E2 = Entry(frame2, bd =2, width = 4)
+E2['font'] = f
+E2.place(rely=0.8, relx=0.63)
+
+E2bis = Entry(frame2, bd =2, width = 4)
+E2bis['font'] = f
+E2bis.place(rely=0.8, relx=0.75)
 
 # Affichage d'un texte
 label_file = ttk.Label(file_frame, text="Aucun fichier selectionné")
