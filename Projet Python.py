@@ -62,20 +62,27 @@ def Load_csv_data(excel_filename):
 	df = pd.read_csv(excel_filename)
 	label_file_csv = ttk.Label(file_frame, text="Fichier CSV chargé !")
 	label_file_csv['font'] = f
-	label_file_csv.place(rely=0.2, relx=0)
+	label_file_csv.place(rely=0.2, relx=0.36)
 
 	clear_data()
 	tv1["column"] = list(df.columns)
 	tv1["show"] = "headings"
 
-	ry = 0.5
+
+	ry = 0.02
 
 	for column in tv1["columns"]:
 		print(column)
 		tv1.heading(column, text=column)
+
 		btnCol = tk.Button(frame2, text="Colonne : " + column, command=lambda: affiche_colonne(column))
 		btnCol['font'] = f
-		btnCol.place(rely=ry, relx=0.03)
+		btnCol.place(rely=ry, relx=0.4)
+
+		btnGrp = tk.Button(frame2, text="Regrouper : " + column, command=lambda: affiche_colonne(column))
+		btnGrp['font'] = f
+		btnGrp.place(rely=ry, relx=0.7)
+
 		ry = ry + 0.06
 
 	return df
@@ -91,14 +98,20 @@ def Load_json_data(excel_filename):
 	tv1["column"] = list(df.columns)
 	tv1["show"] = "headings"
 
-	ry = 0.5
+	ry = 0.02
 
 	for column in tv1["columns"]:
 		print(column)
 		tv1.heading(column, text=column)
+
 		btnCol = tk.Button(frame2, text="Colonne : " + column, command=lambda: affiche_colonne(column))
 		btnCol['font'] = f
-		btnCol.place(rely=ry, relx=0.03)
+		btnCol.place(rely=ry, relx=0.4)
+
+		btnGrp = tk.Button(frame2, text="Regrouper : " + column, command=lambda: affiche_colonne(column))
+		btnGrp['font'] = f
+		btnGrp.place(rely=ry, relx=0.7)
+
 		ry = ry + 0.06
 
 	return df
@@ -107,7 +120,7 @@ def Load_json_data(excel_filename):
 def affiche_colonne(column):
 	df = Load_excel_data()
 	print(column)
-	df2 = df['Duration']
+	df2 = df[column]
 
 	print(df2)
 
@@ -200,7 +213,7 @@ f = fontTk.Font(family='Comic Sans MS')
 
 frame1 = tk.LabelFrame(root, text="Affichage des données")
 frame1['font'] = f
-frame1.place(height=800, width=1280, relx = 0.25)
+frame1.place(height=800, width=1000, relx = 0.44)
 
 
 file_frame = tk.LabelFrame(root, text="Ouvrir")
@@ -209,7 +222,7 @@ file_frame.place(height = 140, width = 400, rely= 0.01, relx = 0.01)
 
 frame2 = tk.LabelFrame(root, text="Manipulation des données")
 frame2['font'] = f
-frame2.place(height = 700, width = 400, rely= 0.18, relx = 0.01)
+frame2.place(height = 700, width = 750, rely= 0.18, relx = 0.01)
 
 
 # Les boutons
@@ -259,25 +272,25 @@ btn3['font'] = f
 btn3.place(rely=0.32, relx=0.03)
 
 
-L1 = Label(frame2, text="Une ligne")
+L1 = Label(frame2, text="Une ligne : ")
 L1['font'] = f
-L1.place(rely=0.74, relx=0.03)
+L1.place(rely=0.5, relx=0.03)
 
 E1 = Entry(frame2, bd = 2, width = 4)
 E1['font'] = f
-E1.place(rely=0.74, relx=0.43)
+E1.place(rely=0.5, relx=0.15)
 
-L2 = Label(frame2, text="Une portion de ligne")
+L2 = Label(frame2, text="Une portion de ligne :")
 L2['font'] = f
-L2.place(rely=0.8, relx=0.03)
+L2.place(rely=0.56, relx=0.03)
 
-E2 = Entry(frame2, bd =2, width = 4)
+E2 = Entry(frame2, bd =2, width = 3)
 E2['font'] = f
-E2.place(rely=0.8, relx=0.63)
+E2.place(rely=0.56, relx=0.26)
 
-E2bis = Entry(frame2, bd =2, width = 4)
+E2bis = Entry(frame2, bd =2, width = 3)
 E2bis['font'] = f
-E2bis.place(rely=0.8, relx=0.75)
+E2bis.place(rely=0.56, relx=0.32)
 
 # Affichage d'un texte
 label_file = ttk.Label(file_frame, text="Aucun fichier selectionné")
