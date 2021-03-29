@@ -73,7 +73,7 @@ def Load_csv_data(excel_filename):
 	for column in tv1["columns"]:
 		print(column)
 		tv1.heading(column, text=column)
-		btnCol = tk.Button(frame2, text="Afficher la colonne : " + column, command=lambda: affiche_colonne(column))
+		btnCol = tk.Button(frame2, text="Colonne : " + column, command=lambda: affiche_colonne(column))
 		btnCol['font'] = f
 		btnCol.place(rely=ry, relx=0.03)
 		ry = ry + 0.06
@@ -96,7 +96,7 @@ def Load_json_data(excel_filename):
 	for column in tv1["columns"]:
 		print(column)
 		tv1.heading(column, text=column)
-		btnCol = tk.Button(frame2, text="Afficher la colonne : " + column, command=lambda: affiche_colonne(column))
+		btnCol = tk.Button(frame2, text="Colonne : " + column, command=lambda: affiche_colonne(column))
 		btnCol['font'] = f
 		btnCol.place(rely=ry, relx=0.03)
 		ry = ry + 0.06
@@ -186,7 +186,7 @@ def clear_data():
 
 
 root = tk.Tk()
-root.geometry("1800x1000")
+root.geometry("1800x900")
 root.pack_propagate(False)
 root.resizable(0, 0)
 
@@ -200,45 +200,45 @@ f = fontTk.Font(family='Comic Sans MS')
 
 frame1 = tk.LabelFrame(root, text="Affichage des données")
 frame1['font'] = f
-frame1.place(height=900, width=1280, relx = 0.25)
+frame1.place(height=800, width=1280, relx = 0.25)
 
 
 file_frame = tk.LabelFrame(root, text="Ouvrir")
 file_frame['font'] = f
-file_frame.place(height = 120, width = 400, rely= 0.01, relx = 0.01)
+file_frame.place(height = 140, width = 400, rely= 0.01, relx = 0.01)
 
 frame2 = tk.LabelFrame(root, text="Manipulation des données")
 frame2['font'] = f
-frame2.place(height = 800, width = 400, rely= 0.13, relx = 0.01)
+frame2.place(height = 700, width = 400, rely= 0.18, relx = 0.01)
 
 
 # Les boutons
 
 btn1 = tk.Button(file_frame, text="Rechercher", bg="blue", command=lambda: File_dialog())
 btn1['font'] = f
-btn1.place(rely=0.65, relx=0.53)
+btn1.place(rely=0.6, relx=0.53)
 
 btn2 = tk.Button(file_frame, text="Charger", bg="green", command=lambda: Load_excel_data())
 btn2['font'] = f
-btn2.place(rely=0.65, relx=0.27)
+btn2.place(rely=0.6, relx=0.27)
 
-btnClear = tk.Button(frame2, text="Effacer les données", command=lambda: clear_data())
+btnClear = tk.Button(frame2, text="Effacer", command=lambda: clear_data())
 btnClear['font'] = f
 btnClear.place(rely=0.26, relx=0.03)
 
-btn5prem = tk.Button(frame2, text="Afficher les 5 premieres données", command=lambda: affiche_5_premiers())
+btn5prem = tk.Button(frame2, text="5 premieres données", command=lambda: affiche_5_premiers())
 btn5prem['font'] = f
 btn5prem.place(rely=0.08, relx=0.03)
 
-btn5dern = tk.Button(frame2, text="Afficher les 5 dernieres données", command=lambda: affiche_5_derniers())
+btn5dern = tk.Button(frame2, text="5 dernieres données", command=lambda: affiche_5_derniers())
 btn5dern['font'] = f
 btn5dern.place(rely=0.14, relx=0.03)
 
-btnAff = tk.Button(frame2, text="Afficher les données", command=lambda: affiche_tout())
+btnAff = tk.Button(frame2, text="Tout afficher", command=lambda: affiche_tout())
 btnAff['font'] = f
 btnAff.place(rely=0.02, relx=0.03)
 
-btnDescrp = tk.Button(frame2, text="Description des données", command=lambda: description())
+btnDescrp = tk.Button(frame2, text="Description", command=lambda: description())
 btnDescrp['font'] = f
 btnDescrp.place(rely=0.2, relx=0.03)
 
@@ -259,7 +259,7 @@ btn3['font'] = f
 btn3.place(rely=0.32, relx=0.03)
 
 
-L1 = Label(frame2, text="Afficher une ligne")
+L1 = Label(frame2, text="Une ligne")
 L1['font'] = f
 L1.place(rely=0.74, relx=0.03)
 
@@ -267,7 +267,7 @@ E1 = Entry(frame2, bd = 2, width = 4)
 E1['font'] = f
 E1.place(rely=0.74, relx=0.43)
 
-L2 = Label(frame2, text="Afficher une portion de ligne")
+L2 = Label(frame2, text="Une portion de ligne")
 L2['font'] = f
 L2.place(rely=0.8, relx=0.03)
 
